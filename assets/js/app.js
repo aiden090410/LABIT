@@ -20,13 +20,18 @@ const Auth = (() => {
   const SESSION_KEY = 'labit_session_token';
   const USER_KEY = 'labit_user_info';
 
-  async function init() {
-    loadSavedSession();
-    initGoogleGIS();
-    await verifyExistingSession();
-    bindEvents();
-    updateUserUI();
+async function init() {
+  loadSavedSession();
+  initGoogleGIS();
+  await verifyExistingSession();
+  bindEvents();
+  updateUserUI();
+  renderSidebarNav();
+
+  if (window.lucide) {
+    window.lucide.createIcons();
   }
+}
 
   function bindEvents() {
     document.addEventListener('click', (e) => {
