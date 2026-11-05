@@ -1815,6 +1815,27 @@ async function labitSubmitForm(event) {
 // 1. 일정 및 활동
 // ==========================================
 
+function labitPageHeader(title, description, buttonText, buttonAction) {
+  return `
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div>
+        <h2 class="text-xl font-bold text-labit-text">
+          ${labitEscape(title)}
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">
+          ${labitEscape(description)}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onclick="${buttonAction}"
+        class="px-4 py-2.5 rounded-xl bg-labit-primary text-white text-sm font-bold hover:opacity-90">
+        ${labitEscape(buttonText)}
+      </button>
+    </div>
+  `;
+}
 async function renderSchedulesView(container) {
   container.innerHTML = '<div class="py-16 text-center text-slate-400">일정을 불러오는 중...</div>';
 
