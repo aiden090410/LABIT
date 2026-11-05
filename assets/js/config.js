@@ -27,7 +27,7 @@ window.MENU_ITEMS = [
   { id: 'members', name: '동아리원 관리', icon: 'users', implemented: false, minRole: 'ADMIN' },
   { id: 'archive', name: '활동 아카이브', icon: 'archive', implemented: false, minRole: 'MEMBER' },
   { id: 'community', name: '공지 및 커뮤니티', icon: 'message-square', implemented: false, minRole: 'MEMBER' },
-  { id: 'manual', name: '사용 방법', icon: 'help-circle', implemented: false, minRole: 'GUEST' },
+  { id: 'manual', name: '사용 방법', icon: 'help-circle', implemented: true, minRole: 'GUEST' },
   { id: 'admin', name: '관리자 설정', icon: 'settings', implemented: true, minRole: 'ADMIN' }
 ];
 
