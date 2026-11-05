@@ -1588,8 +1588,11 @@ async function openMaterialDetail(id) {
     </div>`;
   document.body.appendChild(modal);
   modal.querySelector('#material-ai-analyze-btn').addEventListener('click', () => {
-    analyzeMaterialWithGemini(m.id);
-  });
+  console.log('[LABIT] Gemini 분석 버튼 클릭됨');
+  alert('AI 분석 버튼 클릭 이벤트 확인!');
+  analyzeMaterialWithGemini(m.id);
+});
+
   if (window.lucide) lucide.createIcons();
   modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
 }
