@@ -1623,6 +1623,8 @@ async function analyzeMaterialWithGemini(id) {
     }
 
     const analysis = res.data.analysis || '';
+    console.log('[LABIT] Gemini 응답:', res);
+    console.log('[LABIT] 분석 결과:', analysis);
 
     if (!analysis.trim()) {
       throw new Error('분석 결과가 비어 있습니다.');
