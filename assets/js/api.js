@@ -57,6 +57,8 @@ const API = (() => {
 
     if (showLoading) beginLoading(action);
 
+    const requestStart = performance.now();
+
     try {
       let response;
 
@@ -104,10 +106,17 @@ const API = (() => {
         };
       }
 
+      const elapsed = Math.round(performance.now() - requestStart);
+
+      console.log(`[LABIT API] ${action}: ${elapsed}ms`);
+
       return result;
 
     } catch (error) {
       console.error('[LABIT API Error]', error);
+      console.warn(
+        `[LABIT API] ${action} 요청 실패 (${Math.round(performance.now() - requestStart)}ms)`
+      );
 
       return {
         success: false,
