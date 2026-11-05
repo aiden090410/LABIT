@@ -1836,6 +1836,16 @@ function labitPageHeader(title, description, buttonText, buttonAction) {
     </div>
   `;
 }
+function labitEmpty(message) {
+  return `
+    <div class="text-center py-12 px-4">
+      <div class="text-3xl mb-3">📂</div>
+      <p class="text-sm text-slate-500">
+        ${labitEscape(message || '등록된 내용이 없습니다.')}
+      </p>
+    </div>
+  `;
+}
 async function renderSchedulesView(container) {
   container.innerHTML = '<div class="py-16 text-center text-slate-400">일정을 불러오는 중...</div>';
 
