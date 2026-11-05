@@ -1559,7 +1559,7 @@ async function openMaterialDetail(id) {
           ${m.relatedExperimentId ? `<p><b class="text-slate-500">연결 실험</b> <span class="text-slate-700">${materialEscape((experimentsDataCache.find(e=>String(e.id)===String(m.relatedExperimentId))||{}).title || '연결된 실험')}</span></p>` : ''}
           <p class="text-slate-400">등록자: ${materialEscape(m.authorName || '동아리원')}</p>
         </section>
-        <section class="border border-violet-100 bg-violet-50/50 rounded-xl p-4 space-y-3">
+        <section class="hidden border border-violet-100 bg-violet-50/50 rounded-xl p-4 space-y-3">
           <div>
             <h4 class="font-bold text-sm text-violet-900">Gemini AI 자료 분석</h4>
             <p class="text-xs text-slate-500 mt-1">자료의 핵심 개념, 과학적 타당성 및 후속 탐구 주제를 분석합니다.</p>
@@ -1587,12 +1587,7 @@ async function openMaterialDetail(id) {
       </div>
     </div>`;
   document.body.appendChild(modal);
-  modal.querySelector('#material-ai-analyze-btn').addEventListener('click', () => {
-  console.log('[LABIT] Gemini 분석 버튼 클릭됨');
-  alert('AI 분석 버튼 클릭 이벤트 확인!');
-  analyzeMaterialWithGemini(m.id);
-});
-
+ 
   if (window.lucide) lucide.createIcons();
   modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
 }
