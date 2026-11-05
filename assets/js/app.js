@@ -451,7 +451,8 @@ function renderView(menuItem) {
     schedules: typeof renderSchedulesView === 'function' ? renderSchedulesView : null,
     members: typeof renderMembersView === 'function' ? renderMembersView : null,
     archive: typeof renderArchiveView === 'function' ? renderArchiveView : null,
-    community: typeof renderCommunityView === 'function' ? renderCommunityView : null
+    community: typeof renderCommunityView === 'function' ? renderCommunityView : null,
+    manual: typeof renderManualView === 'function' ? renderManualView : null
   };
 
   const renderFunction = viewMap[menuItem.id];
@@ -2267,3 +2268,136 @@ window.addEventListener('load', function () {
     window.lucide.createIcons();
   }
 });
+function renderManualView(contentEl) {
+  contentEl.innerHTML = `
+    <div class="max-w-5xl mx-auto space-y-6 pb-10">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-2xl font-bold text-labit-text">LABIT 사용 설명서</h2>
+          <p class="text-sm text-slate-500 mt-2">
+            생명과학 동아리 활동과 연구를 위한 플랫폼 안내
+          </p>
+        </div>
+        <button onclick="navigateTo('dashboard')"
+          class="px-4 py-2 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50">
+          대시보드로 돌아가기
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-5">
+        <nav class="bg-white border border-slate-200 rounded-xl p-4 h-fit md:sticky md:top-4">
+          <h3 class="font-bold text-sm mb-3">목차</h3>
+          <div class="space-y-2 text-sm">
+            <a href="#manual-intro" class="block text-slate-600 hover:text-blue-600">1. 프로그램 소개</a>
+            <a href="#manual-access" class="block text-slate-600 hover:text-blue-600">2. 접속 및 설치</a>
+            <a href="#manual-screen" class="block text-slate-600 hover:text-blue-600">3. 화면 안내</a>
+            <a href="#manual-features" class="block text-slate-600 hover:text-blue-600">4. 주요 기능 사용법</a>
+            <a href="#manual-caution" class="block text-slate-600 hover:text-blue-600">5. 주의사항 및 FAQ</a>
+          </div>
+        </nav>
+
+        <article class="bg-white border border-slate-200 rounded-xl p-5 md:p-8 space-y-8 text-sm leading-7 text-slate-700">
+          <section id="manual-intro">
+            <h2 class="text-xl font-bold text-labit-text mb-3">1. 프로그램 소개</h2>
+            <p><strong>LABIT</strong>은 생명과학 동아리의 연구와 활동을 체계적으로 관리하기 위한 플랫폼이다.</p>
+            <p class="mt-2">동아리원은 실험과 연구 자료를 확인하고 기록할 수 있으며, 관리자는 동아리 운영에 필요한 정보를 관리할 수 있다.</p>
+          </section>
+
+          <section id="manual-access">
+            <h2 class="text-xl font-bold text-labit-text mb-3">2. 접속 및 설치</h2>
+            <h3 class="font-bold mt-4 mb-2">프로그램 접속</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>동아리에서 안내한 LABIT 접속 주소에 접속한다.</li>
+              <li>화면의 로그인 기능을 이용해 계정에 접속한다.</li>
+              <li>로그인 후 본인의 권한에 따라 이용 가능한 메뉴를 확인한다.</li>
+            </ol>
+
+            <h3 class="font-bold mt-4 mb-2">PC 설치</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>Chrome 또는 Edge에서 LABIT에 접속한다.</li>
+              <li>주소창 주변의 설치 아이콘 또는 브라우저 메뉴의 앱 설치 항목을 선택한다.</li>
+              <li>설치를 완료하면 바탕화면이나 앱 목록에서 실행할 수 있다.</li>
+            </ol>
+
+            <h3 class="font-bold mt-4 mb-2">모바일·태블릿 설치</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>모바일 브라우저에서 LABIT에 접속한다.</li>
+              <li>브라우저 메뉴에서 '홈 화면에 추가' 또는 '앱 설치'를 선택한다.</li>
+              <li>추가가 완료되면 홈 화면의 아이콘으로 실행한다.</li>
+            </ol>
+            <p class="mt-3 text-xs text-slate-500">※ 브라우저와 기기에 따라 설치 메뉴의 명칭과 위치가 다를 수 있다.</p>
+          </section>
+
+          <section id="manual-screen">
+            <h2 class="text-xl font-bold text-labit-text mb-3">3. 화면 안내</h2>
+            <ul class="list-disc pl-5 space-y-2">
+              <li><strong>대시보드:</strong> 동아리 활동의 주요 정보를 확인하는 첫 화면이다.</li>
+              <li><strong>실험 관리:</strong> 실험 관련 기록과 진행 정보를 관리하는 메뉴이다.</li>
+              <li><strong>연구 자료실:</strong> 연구 자료를 등록하고 확인하는 공간이다.</li>
+              <li><strong>일정 및 활동:</strong> 동아리 일정과 활동 정보를 확인하는 메뉴이다.</li>
+              <li><strong>동아리원 관리:</strong> 동아리원 정보를 관리하는 메뉴이다.</li>
+              <li><strong>활동 아카이브:</strong> 완료된 활동 기록을 모아 보는 메뉴이다.</li>
+              <li><strong>공지 및 커뮤니티:</strong> 공지와 의견을 공유하는 메뉴이다.</li>
+              <li><strong>관리자 설정:</strong> 관리자 권한으로 운영 관련 설정을 관리하는 메뉴이다.</li>
+            </ul>
+            <p class="mt-3 text-xs text-slate-500">※ 메뉴별 제공 기능은 현재 프로그램에 구현된 범위와 계정 권한에 따라 달라질 수 있다.</p>
+          </section>
+
+          <section id="manual-features">
+            <h2 class="text-xl font-bold text-labit-text mb-3">4. 주요 기능 사용법</h2>
+
+            <h3 class="font-bold mt-5 mb-2">4-1. 대시보드 확인</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>로그인 후 대시보드 메뉴로 이동한다.</li>
+              <li>표시되는 동아리 활동 관련 정보를 확인한다.</li>
+              <li>필요한 세부 정보는 해당 메뉴로 이동해 확인한다.</li>
+            </ol>
+
+            <h3 class="font-bold mt-5 mb-2">4-2. 실험 관리</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>실험 관리 메뉴를 선택한다.</li>
+              <li>등록된 실험 목록을 확인한다.</li>
+              <li>새로운 실험을 등록하거나 기존 실험의 상세 내용을 확인한다.</li>
+              <li>실험의 진행 상황과 기록을 관리한다.</li>
+            </ol>
+
+            <h3 class="font-bold mt-5 mb-2">4-3. 연구 자료실</h3>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>연구 자료실 메뉴를 선택한다.</li>
+              <li>등록된 연구 자료 목록을 확인한다.</li>
+              <li>자료를 선택하면 상세 내용을 확인할 수 있다.</li>
+              <li>필요한 자료를 등록하거나 기존 자료에 대한 내용을 확인한다.</li>
+            </ol>
+          </section>
+
+          <section id="manual-caution">
+            <h2 class="text-xl font-bold text-labit-text mb-3">5. 주의사항 및 FAQ</h2>
+
+            <div class="rounded-lg bg-amber-50 border border-amber-200 p-4 mb-4">
+              <strong class="text-amber-800">이용 시 주의사항</strong>
+              <ul class="list-disc pl-5 mt-2 text-amber-900 space-y-1">
+                <li>계정 정보와 로그인 세션을 타인과 공유하지 않는다.</li>
+                <li>실험 및 연구 자료를 등록할 때 정확한 정보를 입력한다.</li>
+                <li>개인정보나 외부에 공개하면 안 되는 자료를 무단으로 등록하지 않는다.</li>
+                <li>오류가 발생하면 입력 내용을 확인하고 관리자에게 문의한다.</li>
+              </ul>
+            </div>
+
+            <h3 class="font-bold mt-4 mb-2">자주 묻는 질문</h3>
+            <p><strong>Q. 로그인이 되지 않아요.</strong></p>
+            <p class="mb-3">A. 계정과 네트워크 연결 상태를 확인한 뒤 다시 시도한다. 문제가 지속되면 관리자에게 문의한다.</p>
+
+            <p><strong>Q. 메뉴가 보이지 않아요.</strong></p>
+            <p class="mb-3">A. 계정 권한에 따라 이용할 수 있는 메뉴가 다를 수 있다.</p>
+
+            <p><strong>Q. 등록한 내용이 보이지 않아요.</strong></p>
+            <p>A. 저장 여부와 입력 내용을 확인하고, 문제가 지속되면 관리자에게 문의한다.</p>
+          </section>
+        </article>
+      </div>
+    </div>
+  `;
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
