@@ -2257,3 +2257,8 @@ function getPlaceholderViewHTML(menuItem) {
     </div>
   `;
 }
+window.addEventListener('load', function () {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
