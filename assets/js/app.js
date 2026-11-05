@@ -1824,7 +1824,16 @@ async function renderSchedulesView(container) {
 
   container.innerHTML = `
     <div>
-      ${labitPageHeader('일정 및 활동', '동아리의 모임과 주요 일정을 관리합니다.', '＋ 일정 등록', 'labitOpenSchedule()')}
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-labit-text">일정 및 활동</h2>
+          <p class="text-sm text-slate-500 mt-1">동아리의 모임과 주요 일정을 관리합니다.</p>
+    </div>
+    <button onclick="labitOpenSchedule()"
+      class="px-4 py-2.5 rounded-xl bg-labit-primary text-white text-sm font-bold hover:opacity-90">
+      ＋ 일정 등록
+    </button>
+  </div>
       <div class="space-y-3">
         ${schedules.length ? schedules.map(s => `
           <div class="labit-card p-5">
