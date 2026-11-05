@@ -1183,13 +1183,13 @@ function closeExperimentModal() {
 }
 
 
+
 async function saveExperiment(e, mode, expId) {
   e.preventDefault();
 
   const form = document.getElementById('exp-form');
   const submitButton = form?.querySelector('[type="submit"]');
 
-  // 중복 제출 방지
   if (form?.dataset.saving === 'true') return;
   if (form) form.dataset.saving = 'true';
 
@@ -1197,12 +1197,7 @@ async function saveExperiment(e, mode, expId) {
 
   if (submitButton) {
     submitButton.disabled = true;
-    submitButton.innerHTML = `
-      <span class="inline-flex items-center gap-2">
-        <span class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
-        저장 중...
-      </span>
-    `;
+    submitButton.innerHTML = '저장 중...';
   }
 
   const getValue = id => {
@@ -1238,15 +1233,12 @@ async function saveExperiment(e, mode, expId) {
     const res = await API.post(action, expData);
 
     if (res.success) {
-      alert(
-        mode === 'create'
-          ? '실험이 등록되었습니다.'
-          : '실험 정보가 수정되었습니다.'
-      );
+      alert(mode === 'create'
+        ? '실험이 등록되었습니다.'
+        : '실험 정보가 수정되었습니다.');
 
       closeExperimentModal();
       await loadExperimentsList();
-
     } else {
       alert('저장 실패: ' + res.message);
     }
@@ -1265,44 +1257,6 @@ async function saveExperiment(e, mode, expId) {
   }
 }
 
-  if (!expData.title) {
-    alert('실험 제목을 입력해 주세요.');
-    return;
-  }
-
-  try {
-    const action = mode === 'create'
-      ? 'experiments/create'
-      : 'experiments/update';
-
-    const res = await API.post(action, expData);
-
-    if (res.success) {
-      alert(mode === 'create' ? '실험이 등록되었습니다.' : '실험 정보가 수정되었습니다.');
-      closeExperimentModal();
-      await loadExperimentsList();
-    } else {
-      alert('저장 실패: ' + res.message);
-    }
-  } catch (err) {
-    alert('오류: ' + err.message);
-  }
-}
-
-async function duplicateExperiment(expId) {
-  if (!confirm('이 실험의 가설 및 방법을 복사하여 새 실험으로 생성하시겠습니까?')) return;
-
-  try {
-    const res = await API.post('experiments/duplicate', { id: expId });
-    if (res.success) {
-      await loadExperimentsList();
-    } else {
-      alert('복제 실패: ' + res.message);
-    }
-  } catch (e) {
-    alert('오류: ' + e.message);
-  }
-}
 
 async function archiveExperiment(expId) {
   if (!confirm('해당 실험 프로젝트를 보관 처리하시겠습니까?')) return;
