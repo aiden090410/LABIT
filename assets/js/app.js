@@ -79,36 +79,70 @@ async function init() {
     }
   }
 
-  function openLoginModal() {
-    const modal = document.getElementById('login-modal');
-    const errEl = document.getElementById('login-error-msg');
-    if (errEl) errEl.classList.add('hidden');
+  
+async function openLoginModal() {
+  const modal = document.getElementById('login-modal');
+  const errEl = document.getElementById('login-error-msg');
 
-    if (modal) {
-      modal.classList.remove('hidden');
-      modal.style.display = 'flex';
-    }
+  if (errEl) errEl.classList.add('hidden');
 
-    const cfg = safeConfig();
-    if (!cfg.GOOGLE_CLIENT_ID || cfg.GOOGLE_CLIENT_ID.trim() === '') {
-      showLoginError('Google Client ID가 설정되지 않았습니다. [관리자 설정] 메뉴에서 먼저 등록해 주세요.');
-      return;
-    }
-
-    if (window.google && window.google.accounts) {
-      initGoogleGIS();
-      const btnContainer = document.getElementById('g_id_onload_button');
-      if (btnContainer) {
-        btnContainer.innerHTML = '';
-        window.google.accounts.id.renderButton(
-          btnContainer,
-          { theme: 'outline', size: 'large', width: 280, text: 'signin_with', shape: 'pill' }
-        );
-      }
-    } else {
-      showLoginError('Google 로그인 SDK를 로드할 수 없습니다.');
-    }
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
+
+  const cfg = safeConfig();
+
+  if (!cfg.GOOGLE_CLIENT_ID || cfg.GOOGLE_CLIENT_ID.trim() === '') {
+    showLoginError('Google Client ID가 설정되지 않았습니다. [관리자 설정] 메뉴에서 먼저 등록해 주세요.');
+    return;
+  }
+
+  // Google SDK 로딩 대기 (최대 10초)
+  let attempts = 0;
+
+  while (
+    !(window.google &&
+      window.google.accounts &&
+      window.google.accounts.id) &&
+    attempts < 100
+  ) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    attempts++;
+  }
+
+  if (!(window.google &&
+        window.google.accounts &&
+        window.google.accounts.id)) {
+    showLoginError('Google 로그인 SDK 로딩에 실패했습니다. 네트워크 연결을 확인해 주세요.');
+    return;
+  }
+
+  try {
+    initGoogleGIS();
+
+    const btnContainer = document.getElementById('g_id_onload_button');
+
+    if (btnContainer) {
+      btnContainer.innerHTML = '';
+
+      window.google.accounts.id.renderButton(
+        btnContainer,
+        {
+          theme: 'outline',
+          size: 'large',
+          width: 280,
+          text: 'signin_with',
+          shape: 'pill'
+        }
+      );
+    }
+  } catch (err) {
+    console.error('[LABIT Google Login Error]', err);
+    showLoginError('Google 로그인 초기화에 실패했습니다: ' + err.message);
+  }
+}
+
 
   function closeLoginModal() {
     const modal = document.getElementById('login-modal');
